@@ -1,0 +1,18 @@
+---
+# tasks file for haproxy
+- name: Install haproxy
+  package:
+    name: haproxy
+    state: present
+
+- name: haproxy service start
+  service:
+    name: haproxy
+    state: started
+
+- name: configure haproxy.cfg file
+  template:
+    src: /home/ansible/ansible/roles/haproxy/templates/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    backup: yes
+  notify: haproxy service restart
